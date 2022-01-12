@@ -182,7 +182,7 @@ GO
 
 GO
 	DROP TABLE IF exists Moukitube.dbo.storie_like_channel
-	Create table Moukitube.dbo.stories_like_channel(
+	Create table Moukitube.dbo.storie_like_channel(
 		id INT NOT NULL,
 		CONSTRAINT PK_stories_like_channel_id PRIMARY KEY CLUSTERED (id),
 		types VARCHAR (100) NOT NULL,
