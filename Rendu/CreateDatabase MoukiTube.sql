@@ -10,13 +10,13 @@ GO
 	CREATE DATABASE Moukitube
 		ON
 		(NAME = Moukitube_data ,
-		FILENAME = 'C:\Moukitube.mdf',
+		FILENAME = 'C:\Data_Base\Moukitube.mdf',	/* Choisir son emplacement de fichier */
 		SIZE = 20MB,
 		MAXSIZE = 50MB,
 		FILEGROWTH = 1MB)
 	LOG ON 
 		(NAME = Moukitube_log,
-		FILENAME = 'C:\Moukitube.ldf',
+		FILENAME = 'C:\Data_Base\Moukitube.ldf',	/* Choisir son emplacement de fichier */
 		SIZE = 10MB,
 		MAXSIZE = 20MB,
 		FILEGROWTH = 1MB);
