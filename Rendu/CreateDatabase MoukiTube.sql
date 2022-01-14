@@ -105,7 +105,7 @@ GO
 		title VARCHAR(100) NOT NULL,
 		channelname VARCHAR(100) NOT NULL,
 		date DATE NOT NULL,
-		viewes VARCHAR(10) NOT NULL,										/* Fornat décimal	*/
+		viewes DECIMAL NOT NULL,										
 		types_id INT FOREIGN KEY REFERENCES Moukitube.dbo.types(id)
 		CONSTRAINT Uniqueplace_videos UNIQUE (title, channelname)
 	)
