@@ -27,7 +27,8 @@ GO
 		id INT NOT NULL,
 		CONSTRAINT PK_subscriptions_id PRIMARY KEY CLUSTERED (id),
 		types VARCHAR(100) NOT NULL,
-		CONSTRAINT Uniqueplace_subscriptions UNIQUE (types)
+		prices FLOAT NOT NULL,
+		CONSTRAINT Uniquesubscriptions UNIQUE (types, prices)
 	)
 
 GO
@@ -37,7 +38,7 @@ GO
 		CONSTRAINT PK_monetization_id PRIMARY KEY CLUSTERED (id),
 		date DATE NOT NULL,
 		amount FLOAT NOT NULL,
-		CONSTRAINT Uniqueplace_monetization UNIQUE (date, amount)
+		CONSTRAINT Uniquemonetization UNIQUE (date, amount)
 	)
 
 GO
@@ -47,30 +48,8 @@ GO
 		CONSTRAINT PK_channel_id PRIMARY KEY CLUSTERED (id),
 		name VARCHAR(100) NOT NULL,
 		date DATE NOT NULL,
-		follower INT NOT NULL,
 		monetization_id INT FOREIGN KEY REFERENCES Moukitube.dbo.monetization(id),
-		CONSTRAINT Uniqueplace_channel UNIQUE (name, date, follower)
-	)
-
-GO
-	DROP TABLE IF exists Moukitube.dbo.storie
-	Create table Moukitube.dbo.storie(
-		id INT NOT NULL,
-		CONSTRAINT PK_storie_id PRIMARY KEY CLUSTERED (id),
-		channelname VARCHAR(100) NOT NULL,
-		date DATE NULL,
-		time TIME NULL,
-		channel_id INT FOREIGN KEY REFERENCES Moukitube.dbo.channel(id),
-		CONSTRAINT Uniqueplace_storie UNIQUE (channelname, date, time)
-	)
-
-GO
-	DROP TABLE IF exists Moukitube.dbo.channel_share_storie
-	Create table Moukitube.dbo.channel_share_storie(
-		id INT NOT NULL,
-		CONSTRAINT PK_channel_share_storie_id PRIMARY KEY CLUSTERED (id),
-		channel_id INT FOREIGN KEY REFERENCES Moukitube.dbo.channel(id),
-		storie_id INT FOREIGN KEY REFERENCES Moukitube.dbo.storie(id),
+		CONSTRAINT Uniquechannel UNIQUE (name, date)
 	)
 
 GO
@@ -85,7 +64,7 @@ GO
 		date DATE NULL,
 		channel_id INT FOREIGN KEY REFERENCES Moukitube.dbo.channel(id),
 		subscriptions_id INT FOREIGN KEY REFERENCES Moukitube.dbo.subscriptions(id),
-		CONSTRAINT Uniqueplace_users UNIQUE (name, firstname, email, password)
+		CONSTRAINT Uniqueusers UNIQUE (name, firstname, email, password)
 	)
 
 GO
@@ -94,7 +73,7 @@ GO
 		id INT NOT NULL,
 		CONSTRAINT PK_types_id PRIMARY KEY CLUSTERED (id),
 		name VARCHAR (30) NOT NULL,
-		CONSTRAINT Uniqueplace_types UNIQUE (name)
+		CONSTRAINT Uniquetypes UNIQUE (name)
 	)
 
 GO
@@ -103,11 +82,11 @@ GO
 		id INT NOT NULL,
 		CONSTRAINT PK_videos_id PRIMARY KEY CLUSTERED (id),
 		title VARCHAR(100) NOT NULL,
-		channelname VARCHAR(100) NOT NULL,
-		date DATE NOT NULL,
-		viewes DECIMAL NOT NULL,										
-		types_id INT FOREIGN KEY REFERENCES Moukitube.dbo.types(id)
-		CONSTRAINT Uniqueplace_videos UNIQUE (title, channelname)
+		date DATE NOT NULL,										
+		types_id INT FOREIGN KEY REFERENCES Moukitube.dbo.types(id),
+		users_id INT FOREIGN KEY REFERENCES Moukitube.dbo.users(id),
+		channel_id INT FOREIGN KEY REFERENCES Moukitube.dbo.channel(id),
+		CONSTRAINT Uniquevideos UNIQUE (title, date),
 	)
 
 GO
@@ -116,9 +95,10 @@ GO
 		id INT NOT NULL,
 		CONSTRAINT PK_comments_id PRIMARY KEY CLUSTERED (id),
 		channelname VARCHAR(100) NOT NULL,
-		description VARCHAR(100) NOT NULL,
-		videos_id INT FOREIGN KEY REFERENCES Moukitube.dbo.videos(id)
-		CONSTRAINT Uniqueplace_comments UNIQUE (channelname)
+		description VARCHAR(200) NOT NULL,
+		videos_id INT FOREIGN KEY REFERENCES Moukitube.dbo.videos(id),
+		users_id INT FOREIGN KEY REFERENCES Moukitube.dbo.users(id),
+		CONSTRAINT Uniquecomments UNIQUE (channelname, description)
 	)
 
 GO
@@ -166,7 +146,6 @@ GO
 		id INT NOT NULL,
 		CONSTRAINT PK_playlists_id PRIMARY KEY CLUSTERED (id),
 		name VARCHAR (50) NOT NULL,
-		channel VARCHAR(100) NOT NULL,
 		types_id INT FOREIGN KEY REFERENCES Moukitube.dbo.types(id),
 		users_id INT FOREIGN KEY REFERENCES Moukitube.dbo.users(id),
 	)
@@ -181,11 +160,10 @@ GO
 	)
 
 GO
-	DROP TABLE IF exists Moukitube.dbo.storie_like_channel
-	Create table Moukitube.dbo.storie_like_channel(
+	DROP TABLE IF exists Moukitube.dbo.users_subscribe_channel
+	Create table Moukitube.dbo.users_subscribe_channel(
 		id INT NOT NULL,
-		CONSTRAINT PK_stories_like_channel_id PRIMARY KEY CLUSTERED (id),
-		types VARCHAR (100) NOT NULL,
-		storie_id INT FOREIGN KEY REFERENCES Moukitube.dbo.storie(id),
+		CONSTRAINT PK_users_subscribe_channel_id PRIMARY KEY CLUSTERED (id),
+		users_id INT FOREIGN KEY REFERENCES Moukitube.dbo.users(id),
 		channel_id INT FOREIGN KEY REFERENCES Moukitube.dbo.channel(id),
 	)
