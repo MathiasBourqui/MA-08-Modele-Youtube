@@ -27,7 +27,6 @@ GO
 		id INT NOT NULL,
 		CONSTRAINT PK_subscriptions_id PRIMARY KEY CLUSTERED (id),
 		types VARCHAR(100) NOT NULL,
-		CONSTRAINT Uniquesubscriptions UNIQUE (types)
 	)
 
 GO
@@ -36,7 +35,7 @@ GO
 		id INT NOT NULL,
 		CONSTRAINT PK_monetization_id PRIMARY KEY CLUSTERED (id),
 		date DATE NOT NULL,
-		amount FLOAT NOT NULL,
+		amount VARCHAR(100) NOT NULL,
 		CONSTRAINT Uniquemonetization UNIQUE (date, amount)
 	)
 
@@ -72,7 +71,6 @@ GO
 		id INT NOT NULL,
 		CONSTRAINT PK_types_id PRIMARY KEY CLUSTERED (id),
 		name VARCHAR (30) NOT NULL,
-		CONSTRAINT Uniquetypes UNIQUE (name)
 	)
 
 GO
@@ -81,7 +79,7 @@ GO
 		id INT NOT NULL,
 		CONSTRAINT PK_videos_id PRIMARY KEY CLUSTERED (id),
 		title VARCHAR(100) NOT NULL,
-		date DATE NOT NULL,
+		date DATE NOT NULL,										
 		types_id INT FOREIGN KEY REFERENCES Moukitube.dbo.types(id),
 		users_id INT FOREIGN KEY REFERENCES Moukitube.dbo.users(id),
 		channel_id INT FOREIGN KEY REFERENCES Moukitube.dbo.channel(id),
