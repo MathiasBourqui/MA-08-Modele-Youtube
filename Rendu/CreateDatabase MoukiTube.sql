@@ -27,7 +27,6 @@ GO
 		id INT NOT NULL,
 		CONSTRAINT PK_subscriptions_id PRIMARY KEY CLUSTERED (id),
 		types VARCHAR(100) NOT NULL,
-		prices FLOAT NOT NULL,
 		CONSTRAINT Uniquesubscriptions UNIQUE (types, prices)
 	)
 
