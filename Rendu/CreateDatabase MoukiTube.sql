@@ -112,7 +112,7 @@ GO
 	Create table Moukitube.dbo.videos_sponsorised_sponsors(
 		id INT NOT NULL,
 		CONSTRAINT PK_videos_sponsorised_sponsors_id PRIMARY KEY CLUSTERED (id),
-		price FLOAT NULL,
+		price VARCHAR(100) NULL,
 		videos_id INT FOREIGN KEY REFERENCES Moukitube.dbo.videos(id),
 		sponsor_id INT FOREIGN KEY REFERENCES Moukitube.dbo.sponsor(id),
 		CONSTRAINT Uniquevideos_sponsorised_sponsors UNIQUE (price)
@@ -152,7 +152,6 @@ GO
 	Create table Moukitube.dbo.playlists_read_users(
 		id INT NOT NULL,
 		CONSTRAINT PK_playlists_read_users_id PRIMARY KEY CLUSTERED (id),
-		playlists_id INT FOREIGN KEY REFERENCES Moukitube.dbo.playlists(id),
 		users_id INT FOREIGN KEY REFERENCES Moukitube.dbo.users(id),
 	)
 
