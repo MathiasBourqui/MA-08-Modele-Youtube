@@ -2,9 +2,13 @@
 	Auteur : Paul-Loup Germain & Mathias Bourqui
 	Date : 21/01/2022
 	Projet : Création du fichier permettant d'insérer les donnés dans la base de donnée Moukitube
+	Description : Nous avons utilisé ce site https://generatedata.com/ pour générer aléatoirement des données
 */
 
+/* Lie ce fichier à la base de donée Moukitube */
 USE Moukitube
+
+/* Ce qui suit sert à indiquer les données à inserer dans les tables et colonnes */
 
 INSERT INTO [Moukitube].[dbo].[subscriptions] (id,types)
 VALUES
